@@ -1,0 +1,59 @@
+html {
+  background-image: url(https://kartinkin.net/uploads/posts/2021-07/1625778925_54-kartinkin-com-p-neiroset-art-art-krasivo-57.jpg);
+  background-size: cover;
+}
+
+body {
+  padding-top: 50px;
+  width: 100%;
+  margin: 0;
+  font-size: 18px;
+  color: #f5f6f7;
+}
+
+.center {
+  text-align: center;
+}
+
+form {
+  width: 60vw;
+  min-width: 300px;
+  max-width: 700px;
+  margin: 0 auto;
+  background-color: #1b1b32;
+  opacity: 0.9;
+
+  padding: 20px;
+}
+
+label {
+  display: block;
+  margin: 0.5em 0;
+}
+
+input,
+select,
+textarea {
+  margin: 10px 0 0 0;
+  width: 100%;
+  min-height: 2em;
+  color: grey;
+}
+
+.inline {
+  width: unset;
+  margin: 0 0.5em 0 0;
+  vertical-align: middle;
+}
+
+fieldset {
+  border: none;
+  margin: 0;
+}
+
+input[type="submit"] {
+  background-color: green;
+  border: none;
+  color: #ffffff;
+  margin-bottom: 30px;
+}
