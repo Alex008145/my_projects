@@ -10,6 +10,13 @@
   box-sizing: inherit;
 }
 
+dialog {
+  margin: auto;
+  padding: 10px;
+  text-align: center;
+  font-size: 15px;
+}
+
 html {
   font-size: 62.5%;
   box-sizing: border-box;
