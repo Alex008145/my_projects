@@ -91,6 +91,7 @@ const totalIncome = salary + bonus + onlineCourses;
 console.log(totalIncome);
 */
 
+/*
 // Day 3
 const firstName = "John";
 const lastName = "Sato";
@@ -171,3 +172,115 @@ const hour = ("0" + date2.getHours()).slice(-2);
 const minute = ("0" + date2.getMinutes()).slice(-2);
 const humanReadableTime = `${yearNow}-${month}-${day} ${hour}:${minute}`;
 console.log(humanReadableTime);
+*/
+
+/*
+// Day 4
+
+// const age = prompt("Enter your age");
+// age >= 18
+//   ? console.log("You are old enough to drive2")
+//   : console.log(`You are left ${18 - age} years to drive`);
+
+// const yourAge = prompt("Enter your age:");
+// const myAge = 23;
+// myAge > yourAge
+//   ? console.log(`You are ${myAge - yourAge} years younger`)
+//   : console.log(`You are ${yourAge - myAge} years25 older`);
+
+let a = 4;
+let b = 3;
+
+if (a > b) {
+  console.log("a is greater than b");
+} else {
+  console.log("b is greater than a");
+}
+
+a > b
+  ? console.log(`${a} is greater than ${b}`)
+  : console.log(`${b} is greater than ${a}`);
+
+// const num = prompt("Enter a number:");
+// num % 2 === 03
+//   ? console.log(`${num} is even number`)
+//   : console.log(`${num} is odd number`);
+
+// const score = prompt("Enter your score");
+// switch (true) {
+//   case score >= 80:
+//     console.log("Grade: A");
+//     break;
+//   case score >= 70:
+//     console.log("Grade: B");
+//     break;
+//   case score >= 60:
+//     console.log("Grade: C");
+//     break;
+//   case score >= 50:
+//     console.log("Grade: D");
+//     break;
+//   case score < 50:
+//     console.log("Grade: F");
+//     break;
+// }
+
+// const month = prompt("Enter a month:").toLowerCase();
+
+// if (month === "september" || month === "october" || month === "november") {
+//   console.log("Autumn");
+// } else if (
+//   month === "december" ||
+//   month === "january" ||
+//   month === "february"
+// ) {
+//   console.log("Winter");
+// } else if (month === "march" || month === "april" || month === "may") {
+//   console.log("Spring");
+// } else if (month === "june" || month === "july" || month === "august") {
+//   console.log("Summer");
+// } else {
+//   console.log("Invalid month input");
+// }
+
+// const day = prompt("What is the day today?").toLocaleLowerCase();
+// day === "monday" ||
+// day === "tuesday" ||
+// day === "wednesdaw" ||
+// day === "thursday" ||
+// day === "friday"
+//   ? console.log(`${day[0].toUpperCase() + day.slice(1)} is a working day.`)
+//   : console.log(`${day[0].toUpperCase() + day.slice(1)} is a weekend.`);
+
+function daysInMonth(month, year) {
+  return new Date(year, month, 0).getDate();
+}
+console.log(daysInMonth(2, 2020)); // 29 (leap year)
+console.log(daysInMonth(2, 2021)); // 28 (not a leap year)
+console.log(daysInMonth(5, 2020)); // 31
+console.log(daysInMonth(2, 2023));
+*/
+
+/// Day 5
+const arr = [1, "2", "a", "text", null];
+console.log(arr.length);
+console.log(arr[0]);
+console.log(arr[3]);
+console.log(...arr.slice(-1));
+const itCompanies = [
+  "Facebook",
+  "Google",
+  "Microsoft",
+  "Apple",
+  "IBM",
+  "Oracle",
+  "Amazon",
+];
+console.log(...itCompanies);
+console.log(itCompanies.includes("Apple"));
+itCompanies.pop();
+console.log(itCompanies);
+
+console.log(itCompanies.reverse());
+itCompanies.length = 0;
+console.log(itCompanies);
