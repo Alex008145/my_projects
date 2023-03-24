@@ -9,6 +9,7 @@ const styles = {
     padding: 0,
   },
 };
+
 function TodoList(props) {
   return (
     <ul style={styles.ul}>
@@ -18,5 +19,9 @@ function TodoList(props) {
     </ul>
   );
 }
+
+TodoList.propTypes = {
+  todos: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 export default TodoList;
