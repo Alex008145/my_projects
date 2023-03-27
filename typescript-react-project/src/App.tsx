@@ -1,21 +1,30 @@
-import React, { createElement as e, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Product } from "./components/Product";
+import { products } from "./data/products";
+import axios from "axios";
+import { IProduct } from "./models";
 
 function App() {
-  const [count, setCount] = useState(0);
-  // return <h1>Hello React</h1>;
+  const [products, setProducts] = useState<IProduct[]>([]);
 
-  return e("div", { className: "container" }, [
-    e("h1", { className: "font-bold", key: 1 }, `Test JSX ${count}`),
-    e(
-      "button",
-      {
-        className: "py-2 px-4 border",
-        key: 2,
-        onClick: () => setCount(count + 1),
-      },
-      "Click me!"
-    ),
-  ]);
+  async function fetchProducts() {
+    const response = await axios.get<IProduct[]>(
+      "https://fakestoreapi.com/products"
+    );
+    console.log(response);
+  }
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  return (
+    <div className="container mx-auto max-w-2xl pt-5">
+      {products.map((product) => (
+        <Product product={product} key={product.id} />
+      ))}
+    </div>
+  );
 }
 
 export default App;
