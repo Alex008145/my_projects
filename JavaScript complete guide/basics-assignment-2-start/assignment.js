@@ -16,4 +16,5 @@ function strings(str1, str2, str3) {
   return result;
 }
 
-alert(strings("Hi ", "I am ", "Alex"));
+const combinedString = strings("Hi ", "I am ", "Alex");
+alert(combinedString);
