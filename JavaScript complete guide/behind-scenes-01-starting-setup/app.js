@@ -1,11 +1,24 @@
-var name = "Alex";
+// var name = "Max";
+// let hobbies;
 
-function greet() {
-  var age = 30;
-  var name = "Max";
-  console.log(name, age);
-}
+// if (name === "Max") {
+//   hobbies = ["Sports", "Cooking"];
+//   console.log(hobbies);
+// }
 
-console.log(name);
+// const person = {};
 
-greet();
+// function greet() {
+//   var age = 30;
+//   var name = "Max";
+//   console.log(name, age, hobbies);
+// }
+
+// console.log(name, hobbies);
+
+// greet();
+"use strict";
+
+let userName = "Max";
+
+console.log(userName);
