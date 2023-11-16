@@ -1,4 +1,4 @@
-import Component, { doSomthing } from './Component.js';
+import Component, { doSomthing } from './Component';
 
 console.log('Tooltip loading');
 
