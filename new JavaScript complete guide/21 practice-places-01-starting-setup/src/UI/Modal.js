@@ -30,7 +30,7 @@ export class Modal {
 
   hide() {
     if (this.modalElement) {
-      document.body.removeChild(this.modalElement);
+      document.body.removeChild(this.modalElement); // this.modalElement.remove()
       document.body.removeChild(this.backdropElement);
       this.modalElement = null;
       this.backdropElement = null;
