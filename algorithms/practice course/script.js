@@ -70,41 +70,64 @@
 
 // ==========================================================
 
-function highestFrequency(array) {
-  const map = {};
-  let maxFreq = 0;
-  let maxFreqStr = array[0];
+// function highestFrequency(array) {
+//   const map = {};
+//   let maxFreq = 0;
+//   let maxFreqStr = array[0];
 
-  for (let i = 0; i < array.length; i++) {
-    const current = array[i];
+//   for (let i = 0; i < array.length; i++) {
+//     const current = array[i];
 
-    if (map[current]) {
-      map[current]++;
-    } else {
-      map[current] = 1;
-    }
+//     if (map[current]) {
+//       map[current]++;
+//     } else {
+//       map[current] = 1;
+//     }
 
-    if (map[current] > maxFreq) {
-      maxFreq = map[current];
-      maxFreqStr = current;
-    }
-  }
-  return maxFreqStr;
+//     if (map[current] > maxFreq) {
+//       maxFreq = map[current];
+//       maxFreqStr = current;
+//     }
+//   }
+//   return maxFreqStr;
+// }
+
+// console.log(highestFrequency(['a', 'b', 'c', 'c', 'd', 'e'])); // -> c
+// console.log(highestFrequency(['abc', 'def', 'abc', 'def', 'abc'])); // -> abc
+// console.log(highestFrequency(['abc', 'def'])); // -> abc
+// console.log(
+//   highestFrequency([
+//     'abc',
+//     'abc',
+//     'def',
+//     'def',
+//     'def',
+//     'ghi',
+//     'ghi',
+//     'ghi',
+//     'ghi',
+//   ])
+// ); // -> ghi
+
+// ==========================================================
+
+function isStringRotated(source, test) {
+  // if (source.length !== test.length) {
+  //   return false;
+  // }
+
+  // for (let i = 0; i < source.length; i++) {
+  //   const rotate = source.slice(i, source.length) + source.slice(0, i);
+
+  //   if (rotate === test) {
+  //     return true;
+  //   }
+  // }
+  // return false;
+
+  return (source + source).includes(test) && source.length === test.length;
 }
 
-console.log(highestFrequency(['a', 'b', 'c', 'c', 'd', 'e'])); // -> c
-console.log(highestFrequency(['abc', 'def', 'abc', 'def', 'abc'])); // -> abc
-console.log(highestFrequency(['abc', 'def'])); // -> abc
-console.log(
-  highestFrequency([
-    'abc',
-    'abc',
-    'def',
-    'def',
-    'def',
-    'ghi',
-    'ghi',
-    'ghi',
-    'ghi',
-  ])
-); // -> ghi
+console.log(isStringRotated('javascript', 'scriptjava')); // -> true
+console.log(isStringRotated('javascript', 'iptjavascr')); // -> true
+console.log(isStringRotated('javascript', 'java')); // -> false
