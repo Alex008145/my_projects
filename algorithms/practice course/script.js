@@ -260,35 +260,123 @@
 
 // ==========================================================
 
-function isBalanced(string) {
-  const start = '{[(';
-  const end = '}])';
+// function isBalanced(string) {
+//   const start = '{[(';
+//   const end = '}])';
 
-  const map = {
-    '}': '{',
-    ']': '[',
-    ')': '(',
-  };
+//   const map = {
+//     '}': '{',
+//     ']': '[',
+//     ')': '(',
+//   };
 
-  const queue = [];
+//   const queue = [];
 
-  for (let i = 0; i < string.length; i++) {
-    const char = string[i];
+//   for (let i = 0; i < string.length; i++) {
+//     const char = string[i];
 
-    if (start.includes(char)) {
-      queue.push(char);
-    } else if (end.includes(char)) {
-      const last = queue.pop();
-      if (map[char] !== last) {
-        return false;
-      }
+//     if (start.includes(char)) {
+//       queue.push(char);
+//     } else if (end.includes(char)) {
+//       const last = queue.pop();
+//       if (map[char] !== last) {
+//         return false;
+//       }
+//     }
+//   }
+//   return !queue.length;
+// }
+
+// console.log(isBalanced('(x + y) - (4)')); // -> true
+// console.log(isBalanced('(((10 ) ()) ((?)(:)))')); // -> true
+// console.log(isBalanced('[{()}]')); // -> true
+// console.log(isBalanced('(50)(')); // -> false
+// console.log(isBalanced('[{]}')); // -> false
+
+// ==========================================================
+
+// class Queue {
+//   #storage = {};
+//   #last = 0;
+//   #first = 0;
+
+//   enqueue(item) {
+//     this.#storage[this.#last] = item;
+//     this.#last++;
+//   }
+
+//   dequeue() {
+//     if (this.size === 0) {
+//       return;
+//     }
+//     const value = this.#storage[this.#first];
+//     delete this.#storage[this.#first];
+//     this.#first++;
+//     return value;
+//   }
+
+//   get size() {
+//     return this.#last - this.#first;
+//   }
+// }
+
+class LinkedList {
+  #length = 0;
+  #head;
+  #tail;
+
+  addToTail(value) {
+    const node = {
+      value,
+      next: null,
+    };
+
+    if (this.#length === 0) {
+      this.#head = node;
+      this.#tail = node;
+    } else {
+      this.#tail = node;
     }
+
+    this.#length++;
   }
-  return !queue.length;
+
+  removeFromHead() {
+    if (this.#length === 0) {
+      return;
+    }
+
+    const value = this.#head.value;
+    this.#head = this.#head.next;
+    this.#length--;
+
+    return value;
+  }
+
+  size() {
+    return this.#length;
+  }
 }
 
-console.log(isBalanced('(x + y) - (4)')); // -> true
-console.log(isBalanced('(((10 ) ()) ((?)(:)))')); // -> true
-console.log(isBalanced('[{()}]')); // -> true
-console.log(isBalanced('(50)(')); // -> false
-console.log(isBalanced('[{]}')); // -> false
+class Queue extends LinkedList {
+  constructor() {
+    super();
+
+    this.enqueue = this.addToTail;
+    this.dequeue = this.removeFromHead;
+  }
+
+  get size() {
+    return super.size();
+  }
+}
+
+const table = new Queue();
+
+table.enqueue(1);
+table.enqueue(2);
+table.enqueue(42);
+
+table.dequeue();
+
+console.log(table.size);
