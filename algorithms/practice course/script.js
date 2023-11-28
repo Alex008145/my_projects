@@ -320,63 +320,102 @@
 //   }
 // }
 
-class LinkedList {
-  #length = 0;
-  #head;
-  #tail;
+// class LinkedList {
+//   #length = 0;
+//   #head;
+//   #tail;
 
-  addToTail(value) {
-    const node = {
-      value,
-      next: null,
-    };
+//   addToTail(value) {
+//     const node = {
+//       value,
+//       next: null,
+//     };
 
-    if (this.#length === 0) {
-      this.#head = node;
-      this.#tail = node;
-    } else {
-      this.#tail = node;
+//     if (this.#length === 0) {
+//       this.#head = node;
+//       this.#tail = node;
+//     } else {
+//       this.#tail = node;
+//     }
+
+//     this.#length++;
+//   }
+
+//   removeFromHead() {
+//     if (this.#length === 0) {
+//       return;
+//     }
+
+//     const value = this.#head.value;
+//     this.#head = this.#head.next;
+//     this.#length--;
+
+//     return value;
+//   }
+
+//   size() {
+//     return this.#length;
+//   }
+// }
+
+// class Queue extends LinkedList {
+//   constructor() {
+//     super();
+
+//     this.enqueue = this.addToTail;
+//     this.dequeue = this.removeFromHead;
+//   }
+
+//   get size() {
+//     return super.size();
+//   }
+// }
+
+// const table = new Queue();
+
+// table.enqueue(1);
+// table.enqueue(2);
+// table.enqueue(42);
+
+// table.dequeue();
+
+// console.log(table.size);
+
+// ==========================================================
+
+function deepEqual(a, b) {
+  // return _.isEqual(a, b);
+
+  if (Number.isNaN(a) && Number.isNaN(b)) {
+    return true;
+  }
+
+  if (typeof a !== typeof b) {
+    return false;
+  }
+
+  if (typeof a !== 'object' || a === null || b === null) {
+    return a === b;
+  }
+
+  if (Object.keys(a).length !== Object.keys(b).length) {
+    return false;
+  }
+
+  for (const key of Object.keys(a)) {
+    if (!deepEqual(a[key], b[key])) {
+      return false;
     }
-
-    this.#length++;
   }
 
-  removeFromHead() {
-    if (this.#length === 0) {
-      return;
-    }
-
-    const value = this.#head.value;
-    this.#head = this.#head.next;
-    this.#length--;
-
-    return value;
-  }
-
-  size() {
-    return this.#length;
-  }
+  return true;
 }
 
-class Queue extends LinkedList {
-  constructor() {
-    super();
-
-    this.enqueue = this.addToTail;
-    this.dequeue = this.removeFromHead;
-  }
-
-  get size() {
-    return super.size();
-  }
-}
-
-const table = new Queue();
-
-table.enqueue(1);
-table.enqueue(2);
-table.enqueue(42);
-
-table.dequeue();
-
-console.log(table.size);
+const source = { a: 1, b: { c: 1 } };
+const test1 = { a: 1, b: { c: 1 } };
+const test2 = { a: 1, b: { c: 2 } };
+console.log(deepEqual(source, test1)); // -> true
+console.log(deepEqual(source, test2)); // -> false
+console.log(deepEqual(NaN, NaN)); // -> true
+console.log(deepEqual('test', 'test!')); // -> false
+console.log(deepEqual()); // -> true
