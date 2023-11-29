@@ -1,4 +1,5 @@
-// Time Complexity (Greedy Solution): 0(n)
+// Time Complexity (Greedy Solution): O(n)
+// Time Complexity (Brute Force): O(n^2)
 
 function computeChange(coins, amount) {
   let remainingAmount = amount;
@@ -18,8 +19,25 @@ function computeChange(coins, amount) {
   return calculatedChange;
 }
 
-const availableCoins = [100, 50, 20, 10, 5, 2, 1];
-const targetAmount = 50;
+function computeChangeBruteForce(coins, amount) {
+  const results = [];
+  for (let i = 0; i < coins.length; i++) {
+    results.push(computeChange(coins.slice(i), amount));
+  }
 
-const change = computeChange(availableCoins, targetAmount);
+  let smallestAmountOfCoins = Number.MAX_SAFE_INTEGER;
+  let finalResult;
+  for (const result of results) {
+    if (result.numberOfCoins < smallestAmountOfCoins) {
+      smallestAmountOfCoins = result.numberOfCoins;
+      finalResult = result;
+    }
+  }
+  return finalResult;
+}
+
+const availableCoins = [8, 6, 5, 1];
+const targetAmount = 11;
+
+const change = computeChangeBruteForce(availableCoins, targetAmount);
 console.log(change);
