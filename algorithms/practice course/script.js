@@ -419,3 +419,92 @@ console.log(deepEqual(source, test2)); // -> false
 console.log(deepEqual(NaN, NaN)); // -> true
 console.log(deepEqual('test', 'test!')); // -> false
 console.log(deepEqual()); // -> true
+
+// ==========================================================
+function sum(arr, n) {
+  // Base case: return 0 if n is 0 or negative
+  if (n <= 0) {
+    return 0;
+  }
+
+  // Recursive case: add the first n-1 elements and the nth element
+  return sum(arr, n - 1) + arr[n - 1];
+}
+
+function countSmileys(arr) {
+  const validSmileys = arr.filter((smiley) => {
+    return /^[:;][-~]?[)D]$/.test(smiley);
+  });
+
+  return validSmileys.length;
+}
+
+function findUniqueNumber(arr) {
+  let uniqueNumber = 0;
+  for (let i = 0; i < arr.length; i++) {
+    uniqueNumber ^= arr[i];
+  }
+  return uniqueNumber;
+}
+
+function findUniq(arr) {
+  // Sort the array in ascending order
+  arr.sort((a, b) => a - b);
+
+  // Check if the first two numbers are equal
+  // If they are, the unique number is at the end of the array
+  // Otherwise, the unique number is at the beginning of the array
+  if (arr[0] !== arr[1]) {
+    return arr[0];
+  } else {
+    return arr[arr.length - 1];
+  }
+}
+
+function sumArrayValues(arr) {
+  const sum = arr.reduce((acc, curr) => acc + Number(curr), 0);
+  return sum;
+}
+function doubleArrayValues(arr) {
+  const doubledArray = arr.map((num) => num * 2);
+  return doubledArray;
+}
+
+function XO(str) {
+  let totalX = 0;
+  let totalO = 0;
+
+  for (let i = 0; i < str.length; i++) {
+    if (str[i].toUpperCase() === 'O') {
+      totalO++;
+    } else if (str[i].toUpperCase() === 'X') {
+      totalX++;
+    }
+  }
+
+  if (totalX === totalO) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function removeSmallest(arr) {
+  // Find the index of the smallest element
+  let smallestIndex = 0;
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] < arr[smallestIndex]) {
+      smallestIndex = i;
+    }
+  }
+
+  // Remove the smallest element using splice()
+  arr.splice(smallestIndex, 1);
+
+  return arr;
+}
+
+// Example usage
+const numbers = [4, 2, 1, 3, 5];
+const result = removeSmallest(numbers);
+console.log(result); // Output: [4, 2, 3, 5]
