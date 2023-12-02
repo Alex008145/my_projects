@@ -10,13 +10,17 @@
       div {
         border: 2px solid orange;
       }
+      .highlight {
+        background-color: rgb(247, 206, 131);
+        /* border-bottom: 2px solid blue; */
+      }
     </style>
   </head>
   <body>
     <p>
-      <dw-tooltip text="Web Components is a set of standards."
-        >Web Components</dw-tooltip
-      >
+      <dw-tooltip text="Web Components is a set of standards.">
+        <span class="highlight">Web Components</span>
+      </dw-tooltip>
       are awesome!
     </p>
     <dw-tooltip></dw-tooltip>
