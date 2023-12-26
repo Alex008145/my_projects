@@ -53,7 +53,7 @@ export function rotateMatrix(matrix) {
   const rotatedMatrix = [];
   for (let i = 0; i < N; i++) {
     rotatedMatrix[i] = [];
-    for (let j = 0; j < N; i++) {
+    for (let j = 0; j < N; j++) {
       rotatedMatrix[i][j] = matrix[N - j - 1][i];
     }
   }

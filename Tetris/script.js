@@ -1,12 +1,18 @@
 import { Tetris } from './tetris.js';
-import { convertPositionToIndex } from './utilities.js';
+import {
+  PLAYFIELD_COLUMNS,
+  PLAYFIELD_ROWS,
+  convertPositionToIndex,
+} from './utilities.js';
 
+let requestId;
+let timeoutId;
 const tetris = new Tetris();
 const cells = document.querySelectorAll('.grid>div');
 
 initKeydown();
 
-draw();
+moveDown();
 
 function initKeydown() {
   document.addEventListener('keydown', onKeydown);
@@ -34,6 +40,12 @@ function onKeydown(event) {
 function moveDown() {
   tetris.moveTetrominoDown();
   draw();
+  stopLoop();
+  startLoop();
+
+  if (tetris.isGameOver) {
+    gameOver();
+  }
 }
 
 function moveLeft() {
@@ -51,16 +63,41 @@ function rotate() {
   draw();
 }
 
+function startLoop() {
+  timeoutId = setTimeout(
+    () => (requestId = requestAnimationFrame(moveDown)),
+    700
+  );
+}
+
+function stopLoop() {
+  cancelAnimationFrame(requestId);
+  clearTimeout(timeoutId);
+}
+
 function draw() {
   cells.forEach((cell) => cell.removeAttribute('class'));
+  drawPlayfield();
   drawTetromino();
+  drawGhostTetromino();
+}
+
+function drawPlayfield() {
+  for (let row = 0; row < PLAYFIELD_ROWS; row++) {
+    for (let column = 0; column < PLAYFIELD_COLUMNS; column++) {
+      if (!tetris.playfield[row][column]) continue;
+      const name = tetris.playfield[row][column];
+      const cellIndex = convertPositionToIndex(row, column);
+      cells[cellIndex].classList.add(name);
+    }
+  }
 }
 
 function drawTetromino() {
   const name = tetris.tetromino.name;
   const tetrominoMatrixSize = tetris.tetromino.matrix.length;
   for (let row = 0; row < tetrominoMatrixSize; row++) {
-    for (let column; column < tetrominoMatrixSize; column++) {
+    for (let column = 0; column < tetrominoMatrixSize; column++) {
       if (!tetris.tetromino.matrix[row][column]) continue;
       if (tetris.tetromino.row + row < 0) continue;
       const cellIndex = convertPositionToIndex(
@@ -70,4 +107,24 @@ function drawTetromino() {
       cells[cellIndex].classList.add(name);
     }
   }
+}
+
+function drawGhostTetromino() {
+  const tetrominoMatrixSize = tetris.tetromino.matrix.length;
+  for (let row = 0; row < tetrominoMatrixSize; row++) {
+    for (let column = 0; column < tetrominoMatrixSize; column++) {
+      if (!tetris.tetromino.matrix[row][column]) continue;
+      if (tetris.tetromino.ghostRow + row < 0) continue;
+      const cellIndex = convertPositionToIndex(
+        tetris.tetromino.ghostRow + row,
+        tetris.tetromino.ghostColumn + column
+      );
+      cells[cellIndex].classList.add('ghost');
+    }
+  }
+}
+
+function gameOver() {
+  stopLoop();
+  document.removeEventListener('keydown', onKeydown);
 }
