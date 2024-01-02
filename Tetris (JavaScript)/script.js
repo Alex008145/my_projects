@@ -3,14 +3,17 @@ import {
   PLAYFIELD_COLUMNS,
   PLAYFIELD_ROWS,
   convertPositionToIndex,
+  SAD,
 } from './utilities.js';
 
+let hammer;
 let requestId;
 let timeoutId;
 const tetris = new Tetris();
 const cells = document.querySelectorAll('.grid>div');
 
 initKeydown();
+initTouch();
 
 moveDown();
 
@@ -32,9 +35,63 @@ function onKeydown(event) {
     case 'ArrowRight':
       moveRight();
       break;
+    case ' ':
+      dropDown();
+      break;
     default:
       break;
   }
+}
+
+function initTouch() {
+  document.addEventListener('dblclick', (event) => {
+    event.preventDefault();
+  });
+
+  hammer = new Hammer(document.querySelector('body'));
+  hammer.get('pan').set({ direction: Hammer.DIRECTION_ALL });
+  hammer.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+
+  const threshold = 30;
+  let deltaX = 0;
+  let deltaY = 0;
+
+  hammer.on('panstart', () => {
+    deltaX = 0;
+    deltaY = 0;
+  });
+
+  hammer.on('panleft', (event) => {
+    if (Math.abs(event.deltaX - deltaX) > threshold) {
+      moveLeft();
+      deltaX = event.deltaX;
+      deltaY = event.deltaY;
+    }
+  });
+
+  hammer.on('panright', (event) => {
+    if (Math.abs(event.deltaX - deltaX) > threshold) {
+      moveRight();
+      deltaX = event.deltaX;
+      deltaY = event.deltaY;
+    }
+  });
+
+  hammer.on('pandown', (event) => {
+    if (Math.abs(event.deltaY - deltaY) > threshold) {
+      moveDown();
+      deltaX = event.deltaX;
+      deltaY = event.deltaY;
+    }
+  });
+
+  hammer.on('swipedown', (event) => {
+    dropDown();
+  });
+
+  hammer.on('tap', () => {
+    rotate();
+  });
 }
 
 function moveDown() {
@@ -61,6 +118,17 @@ function moveRight() {
 function rotate() {
   tetris.rotateTetromino();
   draw();
+}
+
+function dropDown() {
+  tetris.dropTetrominoDown();
+  draw();
+  stopLoop();
+  startLoop();
+
+  if (tetris.isGameOver) {
+    gameOver();
+  }
 }
 
 function startLoop() {
@@ -127,4 +195,27 @@ function drawGhostTetromino() {
 function gameOver() {
   stopLoop();
   document.removeEventListener('keydown', onKeydown);
+  hammer.off('panstart panleft panright pandown swipedown tap');
+  gameOverAnimation();
+}
+
+function gameOverAnimation() {
+  const filledCells = [...cells].filter((cell) => cell.classList.length > 0);
+  filledCells.forEach((cell, i) => {
+    setTimeout(() => cell.classList.add('hide'), i * 10);
+    setTimeout(() => cell.removeAttribute('class'), i * 10 + 500);
+  });
+
+  setTimeout(drawSad, filledCells.length * 10 + 1000);
+}
+
+function drawSad() {
+  const TOP_OFFSET = 5;
+  for (let row = 0; row < SAD.length; row++) {
+    for (let column = 0; column < SAD[0].length; column++) {
+      if (!SAD[row][column]) continue;
+      const cellIndex = convertPositionToIndex(TOP_OFFSET + row, column);
+      cells[cellIndex].classList.add('sad');
+    }
+  }
 }
