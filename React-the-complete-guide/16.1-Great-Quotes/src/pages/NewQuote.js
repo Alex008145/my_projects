@@ -17,8 +17,6 @@ const NewQuote = () => {
 
   const addQuoteHandler = (quoteData) => {
     sendRequest(quoteData);
-
-    history.push("/quotes");
   };
 
   return (
